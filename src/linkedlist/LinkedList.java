@@ -81,10 +81,118 @@ public class LinkedList {
         return right;
     }
 
-    public Node prepend(int value){
+    public void prepend(int value){
     Node start = new Node(value);
+    if(head == null){
+    head = start;
+    tail = start;
+    } else{
     start.next = head;
     head = start;
-        return new Node(3);
+    }
+    length++;
+    }
+
+    public Node removeFirst(){
+        Node first = head;
+        if(head == null) return null;
+        if(length == 1){
+            head = null;
+            tail = null;
+        }else{
+            head = first.next;
+            first.next = null;
+        }
+        length--;
+        return first;
+    }
+
+    public Node get(int index){
+        if(head == null) return null;
+        Node current = head;
+        if(index <0 || index >= length){
+            System.out.println("Invalid index: Out of range!");
+            return null;
+        }else{
+            for(int i =0; i<index; i++){
+            current = current.next;
+            }
+        }
+        return current;
+    }
+
+    public void set(int index, int value){
+        Node node = get(index);
+        node.value = value;
+    }
+
+    public boolean insert(int index, int value){
+        boolean status = false;
+        if(index <0 || index >= length) {
+            System.out.println("Invalid index: Out of range!");
+            return status;
+        }
+        if(index == 0){
+            prepend(value);
+            status = true;
+        }
+        if(index == length-1) {
+            append(value);
+            status = true;
+        }
+        if(index >0 && index <length-1){
+            Node node = get(index-1);
+            Node newNode = new Node(value);
+            newNode.next = get(index);
+            node.next = newNode;
+            status = true;
+        }
+        length++;
+        return status;
+    }
+
+    public Node remove (int index){
+        Node node = head;
+        if(index < 0 || index >=length){
+            System.out.println("Invalid index: Out of range!");
+            return null;
+        }
+        if(head == null){
+            node = null;
+        }else if(length == 1){
+            node = head;
+            head = null;
+            tail = null;
+        } else if(index == 0){
+            return removeFirst();
+        } else if(index == length-1){
+            return removeLast();
+        }
+        else{
+            Node prev = get(index-1);
+            Node item = prev.next;
+            node = item;
+            prev.next = item.next;
+            item = null;
+        }
+        length--;
+        return node;
+    }
+
+    public void reverse(){
+        if(head == null) {
+            System.out.println("Invalid index: Out of range!");
+        }
+        if(length >1){
+            Node prev = null, current = head, next = head.next;
+            head = tail;
+            tail = current;
+            for(int i=0; i< length; i++){
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+            }
+        }
     }
 }
