@@ -147,31 +147,19 @@ public class LinkedList {
         return true;
     }
 
-    public Node remove (int index){
+    public Node remove(int index){
+        if(index < 0 || index >= length || length == 0) return null;
         Node node = head;
-        if(index < 0 || index >=length){
-            System.out.println("Invalid index: Out of range!");
-            return null;
+        if(length == 1) {
+            head = null; tail = null; length --;
+            return node;
         }
-        if(head == null){
-            node = null;
-        }else if(length == 1){
-            node = head;
-            head = null;
-            tail = null;
-        } else if(index == 0){
-            return removeFirst();
-        } else if(index == length-1){
-            return removeLast();
-        }
-        else{
-            Node prev = get(index-1);
-            Node item = prev.next;
-            node = item;
-            prev.next = item.next;
-            item = null;
-        }
-        length--;
+        if(index == 0) return removeFirst();
+        if(index == length -1) return removeLast();
+        Node prev = get(index-1);
+        node = prev.next;
+        prev.next = node.next;
+        length --;
         return node;
     }
 
