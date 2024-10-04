@@ -163,20 +163,15 @@ public class LinkedList {
         return node;
     }
 
-    public void reverse(){
-        if(head == null) {
-            System.out.println("Invalid index: Out of range!");
-        }
-        if(length >1){
-            Node prev = null, current = head, next = head.next;
-            head = tail;
-            tail = current;
-            for(int i=0; i< length; i++){
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-            }
-        }
+    public void reverse (){
+        Node prev = null, current = head, next = head;
+        head = tail;
+        tail = current;
+       for(int i = 0; i<length; i++){
+           current = next;
+           next = current.next;
+           current.next = prev;
+           prev = current;
+           }
     }
 }
