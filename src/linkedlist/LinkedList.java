@@ -128,19 +128,21 @@ public class LinkedList {
 
     public boolean insert(int index, int value){
         if(index <0 || index > length) return false;
+        Node node = new Node(value);
+        if (length == 0) {
+            head = node;
+            tail = node;
+            length ++;
+            return true;
+        }
         if(index == 0) {
             prepend(value);
-            
+            length++;
+            return true;
         }
-        if(index == length-1) {
-            append(value);
-        }
-         if(index >0 && index <=length){
         Node prev = get(index-1);
-        Node node = new Node(value);
         node.next = prev.next;
         prev.next = node;
-         }
         length++;
         return true;
     }
