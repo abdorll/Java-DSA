@@ -127,28 +127,22 @@ public class LinkedList {
     }
 
     public boolean insert(int index, int value){
-        boolean status = false;
-        if(index <0 || index >= length) {
-            System.out.println("Invalid index: Out of range!");
-            return status;
-        }
-        if(index == 0){
+        if(index <0 || index > length) return false;
+        if(index == 0) {
             prepend(value);
-            status = true;
+            
         }
         if(index == length-1) {
             append(value);
-            status = true;
         }
-        if(index >0 && index <length-1){
-            Node node = get(index-1);
-            Node newNode = new Node(value);
-            newNode.next = get(index);
-            node.next = newNode;
-            status = true;
-        }
+         if(index >0 && index <=length){
+        Node prev = get(index-1);
+        Node node = new Node(value);
+        node.next = prev.next;
+        prev.next = node;
+         }
         length++;
-        return status;
+        return true;
     }
 
     public Node remove (int index){
